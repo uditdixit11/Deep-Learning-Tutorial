@@ -1,0 +1,35 @@
+CNN
+0 indicate black and 255 indicate white
+
+Pooling is performed in Neural network to reduce variance and computation complexity.
+
+Pooling layer is used to reduce the dimension of feature maps.
+
+The three types of pooling are:
+a) Max Pooling - The maximum pixel value of the batch is selected
+b) Min Poolng - The minimum pixel valies of the batch is selected
+c) Mean Pooling - The average or mean value of the all the pixels in the batch is selected
+
+Max Poolisng is useful when the background of the image is dark.
+Ex - In MNIST dataset the digits are represented in white color and background in black.
+
+Average or Min Pooling is useful when background of the image is white.
+Average pooling method smooths out the image and hence the sharp features may not be identified 
+when this pooling method is used.
+
+1*1 is used for dimensionality reduction
+
+2*2 and 4*4 are not preferred because odd-size filters symmetrically divide the previous layer
+pixel around the output pixel. If this symmetry is not present there will be distortions across
+the layer
+
+3*3 is an optimal choice.
+
+Alexnet uses large filter 5*5 and 11*11
+
+The value of kernel filter are learned automatically by CNN through training process.
+Kernel size smaller and deeper are better
+
+
+
+
