@@ -1,0 +1,70 @@
+
+
+Disadvantage of using ANN for Image Classification
+
+a) Too much computation
+b) Treats local pixels same as pixels far apart
+c) Sensitive to location of an object in an image. Ex - If the cat face is in left corner or 
+right corner it always belong cat, doesn't matter if it is right or left
+
+CNN look for little feature first and detect feature one by one how
+
+
+ 
+Images mention in pixel 
+Rescale the image i.e scale down 0 to 1 value
+
+Convolution Operation -
+Filter -Responsible to find edge or feature.
+When I apply filter 3*3 with image 6*6, perform multiplication and then submision/addition of all value.
+Stride jump of value 2 to right(striding)
+After ending then stride jump of value 2 to down
+n-f+1
+
+Padding - While applying convolution we will not obtain the output dimensions the same to input so we will lose data over borders
+We will use when we want to get the same size of output as size of input.
+.
+n = n+f-1
+two types of padding
+a) zero padding - It added or append the column or rows with zero
+b) try to find the nearest value and put the same.
+n+2p - 3 +1
+
+
+a) It has two parts feature extraction which is responsible to extract feature and second is classification or dense layesr to classify the data.
+a) Use the concept of filter. Filters are the feature detector
+c) ReLu - It makes model non-linear or brings non-linearity. It takes feature map value and replace negative value with 0 and keep positive value as it is.
+d) Pooling layer is used to reduce the size or dimension and generate new feature map. Max pooling takes the window 2 by 2 
+ with stride 2 and pick the maximum value 
+e) So Max pooling with convulutional operation helps you with position invariant feature detection. 
+Doesn't matter where featature are in image it will detect
+
+
+Benefits of pooling
+a) Reduce dimensions and computation
+b) Reduce overfitting becuase there are less parameters
+c) Model is tolerant towards distortions
+
+Benefits of Convolution
+a) Connection sparcity reduce overfitting. It means Not every node are connected with  other node just like in ANN. 
+Here we have filter only where we move around feature.
+b)Conv + Pooling gives you invariant feature detection
+c) Parameter Sharing - When you learn the parameter for filter A then you can apply for an entire image.
+
+Benefits of ReLu
+a) Introduce non linearity
+b) Speed up training and faster to compute.
+
+CNN by itself doesn't take care of rotation, thickness and scale. For this you can Data Augmentation techniques.
+
+Through Hyperparameters you can identify
+a) How many filters you want to have
+b) what is the size of each filter
+
+but you can identify the value inside filters. Means from this filter Networks will learn on his own and this is part of training. 
+During back propagration it will figure right amount of filter and value of these filter.
+
+
+
+
+
