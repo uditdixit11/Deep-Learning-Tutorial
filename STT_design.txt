@@ -1,0 +1,70 @@
+a) Read audio data file i.e wav and load it into 2D numpy array.
+b) Perform Data cleansing steps such as keep the same dimesions of our audio data as our model expects all our input items to have same size 
+   i) Resample the audio file to 16000 sampling rate
+  ii) convert all item to the same channel
+ iii) Remove Audio file with shor duration using librosa
+  iv) Break the audio into small chunks
+c) Data Augmentation such as Time shift our audio left or right randomly by small percentage.
+   Change the pitch or speed of audio by small mount
+d) Converted raw audio to mel spectrograms. A spectogram captures the nature of audio as an image by decomposing it into set of frequencies.
+e) Convert the mel spectrogram into MFCC. MFCC produce a compressed representation of mel spectrogram by extracting only the most essential frequency coefficients, which correspond to the frequency speak by human.
+f) Can do data augmentation of spectrograms using specaugment.
+g) We build a vocabulary  from each character in the transcript and convert them into character IDs.
+
+Architecture is 
+A CNN plus RNN based architecture that uses CTC Loass algorithm to demarcate each character of the words in the speech.
+
+A regular convolutional network consisting of few residual cnn layers that process the spectrogram images and out the feature maps of those images.
+A regular recurrent network consisting of few bidirectional LSTM layers that process the feature maps as a series of distinct timesteps and frames 
+that correspond to our desired sequence of output characters.
+In other words, it takes the feature maps which are continuous representation of audio and convert them into discrete representation.
+
+A linear layer with softmax that uses LSTM outputs to produce character probabilities for timestep of the output.
+
+So our model takes the spectrogram images and outputs character probabilities for each timestep of frame in that spectrogram
+
+The output of CNN i.e feature maps are sliced into seperate frames and input to Recurrent network. Each frame corresponds to some timestep of audio wave file.
+
+The no of frames and the duration of each fram can be chosen by hyperparameters.
+
+For each frame, the recurrent network followed by linear classifer then predicts probabilities for each character from the vocabulary.
+
+The job of ctc algorithm is to take these character probabilities and derive the correct sequence of characters.
+
+There are two modes in CTC
+
+a) CTC Decoding - It is used during inference. Here we don't have target transcript and have to predict most likely sequence of characters.
+b) CTC Loss - It is used during training. It has ground target transcript and tries to train network/model to maximize the probability of outputting that correct transcript.
+
+In CTC decoding we use the character probabilities to pick the most likely character for each frame.
+
+Slice the audio into sequence of frames
+Feed into RNN with sequence
+RNN output character probabilities
+Pick best probabilities
+Merge repeated character
+Remove blank character
+
+
+In CTC Loss
+
+Slice the audio into sequence of frames
+Feed that sequence into RNN
+RNN output character probabilities
+Filter out characters that are not in transcript
+Filter out invalid sequence
+Compute probability of valid sequence
+
+STT Metrics is Word Error Rate
+
+Word Error Rate is the = Inserted word + Deleted words + substituted words/Total words
+
+
+Language Model
+
+SO far STT has treated the spken audio merely corresponding to sequence of characters from some language.
+
+In Language Model, It captures how words are typically used in a language to construct sentences, paragraph. It could be a model that is specific to a particular domain
+A language model gives the probability of certain words sequence being valid.
+
+
